@@ -1,0 +1,1 @@
+Contains states while the robot is on the field.
