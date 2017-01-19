@@ -1,6 +1,1 @@
 Contains code for listening to the knock/sound emitter.
-
-Simple setup using the DAC on an UNO to detect sound levels:
-https://www.youtube.com/watch?v=uSH2NLNbcME
-
-The plan is to set this up to knock and then listen. Record loudest x readings per knock(based on sample rate), average them, and pipe the data to a method in Localization. Localization will keep track of each time it recieves data and whichever it has more of (hollow or solid values) will determine what that square will be.
