@@ -1,1 +1,0 @@
-Contains code for mapping data stored onto the 8x8 LED display.

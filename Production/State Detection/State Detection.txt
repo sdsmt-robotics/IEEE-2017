@@ -1,1 +1,0 @@
-Utilized to determine the robot's current state.
