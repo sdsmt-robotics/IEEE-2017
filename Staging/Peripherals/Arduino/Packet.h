@@ -53,3 +53,5 @@ packet_t Pack(Header command, uint8_t* data);
 void Unpack(packet_t packet, Header& command, uint8_t* data);
 void ClearPacket(packet_t &packet);
 void PrintBits(size_t const size, void const * const ptr);
+
+//
