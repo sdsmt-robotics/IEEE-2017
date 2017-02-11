@@ -19,6 +19,7 @@ public:
     void UpdateSensors();
 
 private:
+	void InterpretValue();
     double value = 0.0;
     double values[10];
 

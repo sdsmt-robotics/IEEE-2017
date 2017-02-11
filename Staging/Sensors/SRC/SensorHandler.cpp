@@ -1,11 +1,11 @@
 #include "SensorHandler.h"
 
-SensorHandler::SensorHandler()
+SensorHandler::SensorHandler(Arduino *A)
 {
-    cam = new Camera("Camera");
-    mouse = new Mouse("Mouse");
-    tunnel = new TunnelDetection("Tunnel Detector");
-    obstacle = new Obstacle("Obstacle Detector");
+    cam = new Camera("Camera") : Sensor(*A);
+    mouse = new Mouse("Mouse") : Sensor(*A);;
+    tunnel = new TunnelDetection("Tunnel Detector") : Sensor(*A);;
+    obstacle = new Obstacle("Obstacle Detector") : Sensor(*A);;
 }
 
 SensorHandler::~SensorHandler()

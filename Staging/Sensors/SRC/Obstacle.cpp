@@ -8,7 +8,14 @@ Obstacle::Obstacle(std::string Name)
 }
 
 void Obstacle::UpdateSensors()
-{
+{	
+	packet_t packet;
+	packet.command = SENSOR_PING;
+	packet = ardy->getPacket(packet);
+	InterpretValue();
+}
 
-    // ends with updating "value"
+void Obstacle::InterpretValue()
+{
+	memcpy(&value, packet.data, sizeof(double));
 }
