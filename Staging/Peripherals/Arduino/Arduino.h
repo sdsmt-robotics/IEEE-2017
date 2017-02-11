@@ -15,6 +15,7 @@ public:
     ~Arduino();
     ssize_t Send(packet_t packet);
     packet_t Receive();
+    packet_t GetPacket(packet_t packet);
 
 private:
     Serial* send;

@@ -44,3 +44,19 @@ packet_t Arduino::Receive()
     free(buffer);
     return packet;
 }
+
+// an atomic send and receive.
+// We first send the given packet, then wait for a response and return it.
+packet_t Arduino::GetPacket(packet_t packet)
+{
+    // send the packet
+    ssize_t sent_bytes = this->Send(packet);
+    // make g++ stop complaining about an unused variable
+    sent_bytes += 1;
+
+    // Really, in this context, if sent_bytes is ever not PACKET_SIZE, we've done something wrong
+    // and should correct ourselves here, not somewhere else.
+
+    // return the response
+    return this->Receive();
+}

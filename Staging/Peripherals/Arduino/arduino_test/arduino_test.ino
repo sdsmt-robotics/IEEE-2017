@@ -2,7 +2,8 @@
 #include "constants.h"
 
 uint8_t input[DATA_SIZE] = {0};
-uint8_t header = 0x0;
+uint8_t header_buffer[ENUM_SIZE] = {0};
+Header header = NONE;
 bool packet_received = false;
 
 void setup()
@@ -23,12 +24,14 @@ void loop()
         // That's not something I'm super familiar with, and since doing it
         // this way worked just fine last year, I'll go with this for now.
 
-        // Zero everything out
-        header = 0x0;
-        memset(input, 0, sizeof(input));
-
-        // read in the first packet byte (header/command/metadata)
-        header = in->read();
+        // read in the first two packet bytes (header/command/metadata)
+        for (int i = 0; i < ENUM_SIZE; i++)
+        {
+            // makes sure there's something to read
+            while(!in->available() > 0) {}
+            header_buffer[i] = in->read();
+        }
+        memcpy(&header, header_buffer, ENUM_SIZE);
 
         // read in the next DATA_SIZE bytes (packet data)
         for (int i = 0; i < DATA_SIZE; i++)
@@ -87,8 +90,9 @@ void loop()
         echo_packet(header, input);
 
         // We've finished with that packet; go looking for a new one.
-        header = 0x0;
-        memset(input, 0, sizeof(input));
+        header = NONE;
+        memset(input, 0, DATA_SIZE);
+        memset(header_buffer, 0, ENUM_SIZE);
         // packet_received = false;
 
         interrupts();
@@ -106,11 +110,14 @@ void clear_buffer()
 }
 
 // simple function for printing the input string. useful for troubleshooting
-void echo_packet(uint8_t header, uint8_t* input)
+void echo_packet(Header header, uint8_t* input)
 {
-    out->write(header);
+    out->write((char*) &header, ENUM_SIZE);
     for(int i = 0; i < DATA_SIZE; i++)
     {
         out->write(input[i]);
     }
 }
+
+
+

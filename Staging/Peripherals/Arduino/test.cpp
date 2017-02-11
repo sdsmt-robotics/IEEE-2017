@@ -17,20 +17,20 @@ int main(int argc, char const *argv[])
     // leave one byte for the null terminator
     char c_input[DATA_SIZE + 1] = {0};
     char output_data[DATA_SIZE] = {0};
-    Command c;
+    Header c = NONE;
 
     while(true)
     {
-        cout << "input> ";
+        cout << "input  > ";
         //`cin` tokenizes on whitespace, use getline instead
         getline(cin, input);
         memcpy(c_input, input.c_str(), (input.length() <= 8) ? (input.length()) : (8));
 
         // note that this only packs DATA_SIZE bytes of the input. If we give
         // it less than DATA_SIZE bytes bad things happen.
-        packet_t packet = pack(NONE, (uint8_t*) c_input);
+        packet_t packet = Pack(c, (uint8_t*) c_input);
         cout << "Raw binary sent:" << endl;
-        print_bits(PACKET_SIZE, &packet);
+        PrintBits(PACKET_SIZE, &packet);
 
         size_t wrote = arduino.Send(packet);
 
@@ -40,10 +40,9 @@ int main(int argc, char const *argv[])
         // single byte for the command
         packet = arduino.Receive();
         cout << "Raw binary received:" << endl;
-        print_bits(PACKET_SIZE, &packet);
+        PrintBits(PACKET_SIZE, &packet);
 
-
-        unpack(packet, c, (uint8_t*) output_data);
+        Unpack(packet, c, (uint8_t*) output_data);
 
         cout << "wrote " << wrote <<"> " << c_input << endl;
         cout << "read   > " << output_data << endl;
