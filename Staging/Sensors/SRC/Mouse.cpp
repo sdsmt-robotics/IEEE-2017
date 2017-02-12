@@ -11,3 +11,4 @@ void Mouse::UpdateSensors()
 
     // ends with updating "value"
 }
+
