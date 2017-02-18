@@ -9,7 +9,7 @@
 
 class SensorHandler{
 public:
-    SensorHandler();
+    SensorHandler(Arduino *A);
     ~SensorHandler();
 
     // Getters
