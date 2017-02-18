@@ -1,13 +1,13 @@
 #include "Ping.h"
 
-Obstacle::Obstacle(std::string Name)
+Ping::Ping(std::string Name)
 {
     for (int i = 0; i < 10; ++i)
         values[i] = STV;
     setName(Name);
 }
 
-void Obstacle::UpdateSensors()
+void Ping::UpdateSensors()
 {	
 	packet_t packet;
 	packet.command = SENSOR_PING;
@@ -15,7 +15,7 @@ void Obstacle::UpdateSensors()
 	InterpretValue();
 }
 
-void Obstacle::InterpretValue()
+void Ping::InterpretValue()
 {
 	memcpy(&value, packet.data, sizeof(double));
 }

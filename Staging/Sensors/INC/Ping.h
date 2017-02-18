@@ -1,13 +1,13 @@
-#ifndef OBSTACLE_H
-#define OBSTACLE_H
+#ifndef PING_H
+#define PING_H
 
 #define STV 25.0  // Arbitrary Starting Value
 
 #include "Sensors.h"
 
-class Obstacle : Sensor{
+class Ping : Sensor{
 public:
-    Obstacle(std::string Name);
+    Ping(std::string Name);
 
     // Getters
     double getValue(){ return value; };
@@ -19,11 +19,10 @@ public:
     void UpdateSensors();
 
 private:
-	void InterpretValue();
+    void InterpretValue();
     double value = 0.0;
     double values[10];
 
 };
-
 
 #endif
