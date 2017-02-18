@@ -3,7 +3,7 @@
 Ping::Ping(std::string Name)
 {
     for (int i = 0; i < 10; ++i)
-        values[i] = STV;
+        values[i] = StartV;
     setName(Name);
 }
 

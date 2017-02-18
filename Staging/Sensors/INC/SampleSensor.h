@@ -20,7 +20,10 @@ public:
 
 
 private:
-    //int value = 0;
+    int value = 0;
+
+    // Private Functions
+    void InterpretValue();
 };
 
 

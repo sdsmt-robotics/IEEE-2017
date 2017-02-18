@@ -1,7 +1,7 @@
 #ifndef PING_H
 #define PING_H
 
-#define STV 25.0  // Arbitrary Starting Value
+#define StartV 25.0  // Arbitrary Starting Value
 
 #include "Sensors.h"
 
@@ -19,9 +19,11 @@ public:
     void UpdateSensors();
 
 private:
-    void InterpretValue();
     double value = 0.0;
     double values[10];
+
+    // Private Functions
+    void InterpretValue();
 
 };
 

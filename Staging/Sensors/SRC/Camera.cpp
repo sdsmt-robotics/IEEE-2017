@@ -13,7 +13,7 @@ Camera::~Camera()
 
 int Camera::ReadCamera()
 {
-    // Insert function call to Kali's code
+    // Insert function call to other Kyle's code
     countedPips = true;
     //value = pips;
     return 0;
@@ -21,9 +21,12 @@ int Camera::ReadCamera()
 
 void Camera::UpdateSensors()
 {
+    InterpretValue();
+}
+
+void Camera::InterpretValue()
+{
     // Does NOTHING unless it is at the specific state of camera over
     // open lid
     value = ReadCamera();
-
-    // ends with updating "value"
 }
