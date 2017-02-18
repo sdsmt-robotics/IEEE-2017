@@ -1,11 +1,11 @@
-#ifndef TUNNELDETECTION_H
-#define TUNNELDETECTION_H
+#ifndef TUNNELDETECTOR_H
+#define TUNNELDETECTOR_H
 
 #include "Sensors.h"
 
-class TunnelDetection : Sensor{
+class TunnelDetector : Sensor {
 public:
-    TunnelDetection(std::string Name);
+    TunnelDetector(std::string Name);
 
     // Getters
     bool getValue(){ return value; };
@@ -19,6 +19,8 @@ public:
 private:
     bool value = 0;
 
+    // Private Functions
+    void InterpretValue();
 };
 
 #endif

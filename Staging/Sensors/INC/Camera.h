@@ -22,6 +22,7 @@ private:
 
     // Private Functions
     int ReadCamera();
+    void InterpretValue();
 };
 
 #endif
