@@ -17,6 +17,7 @@ public:
     void UpdateSensors();
 
 private:
+	void InterpretValue();
     std::pair<int, int> value = std::make_pair(0,0);
 
 };
