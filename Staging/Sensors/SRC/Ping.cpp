@@ -2,7 +2,7 @@
 
 Ping::Ping(std::string Name)
 {
-    for (int i = 0; i < 10; ++i)
+    for (unsigned int i = 0; i < 10; ++i)
         values[i] = StartV;
     setName(Name);
 }
@@ -17,5 +17,19 @@ void Ping::UpdateSensors()
 
 void Ping::InterpretValue()
 {
-	memcpy(&value, packet.data, sizeof(double));
+	memcpy(&values[walker], packet.data, sizeof(double));
+	value = 0.0f;
+	for (unsigned int i = 0; i < 10; ++i)
+		value += values[i];
+	value = value/10.0f;
+
+	if (value < DETECTED)
+		detected = true;
+	else
+		detected = false;
+
+	if (walker < 9)
+		++walker;
+	else
+		walker = 0;
 }

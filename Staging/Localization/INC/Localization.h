@@ -3,7 +3,7 @@
 
 #include <utility>
 
-typedef std::pair<int, int> pair;
+typedef std::pair<float, float> pair;
 
 
 class Localization{
@@ -11,17 +11,20 @@ public:
     Localization();
 
     // Getters
-    pair getCurrentPos(){ return currentPos; };
+    std::pair<float, float> getCurrentPos(){ return currentPos; };
+    std::pair<float, float> getPreviousPos(){ return previousPos; };
 
     // Setters
-    void setCurrentPos(pair curPos){ currentPos = std::make_pair(curPos.first, curPos.second); };
+    void setCurrentPos(std::pair<float, float> curPos);
 
     // Actions
 
     
 private:
-    pair currentPos;
-
+	std::pair<float, float> previousPositions[5];	// Number based on reads/second
+	int walker = 0;
+	std::pair<float, float> previousPos;
+    std::pair<float, float> currentPos;
 };
 
 #endif

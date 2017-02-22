@@ -5,7 +5,7 @@
 #include "Camera.h"
 #include "Mouse.h"
 #include "TunnelDetection.h"
-#include "Obstacle.h"
+#include "Ping.h"
 
 class SensorHandler{
 public:
@@ -16,7 +16,7 @@ public:
     Camera* getCameraSensor(){ return cam; };
     Mouse* getMouseSensor(){ return mouse; };
     TunnelDetection* getTunnelSensor(){ return tunnel; };
-    Obstacle* getObstacleSensor(){ return obstacle; };
+    Ping* getObstacleSensor(){ return obstacle; };
 
     // Setters
 
@@ -27,7 +27,7 @@ private:
     Camera *cam = nullptr;
     Mouse *mouse = nullptr;
     TunnelDetection *tunnel = nullptr;
-    Obstacle *obstacle = nullptr;
+    Ping **ping[4] = nullptr;
 };
 
 #endif

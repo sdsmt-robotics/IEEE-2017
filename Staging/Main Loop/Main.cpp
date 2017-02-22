@@ -7,13 +7,15 @@ int main()
 {
     SensorHandler* SensorControl = new SensorHandler();
     Localization* Localizer = new Localization();
-    StateDetect* StateDetector = new StateDetect();
+    StateDetect* StateDetector = new StateDetect(SensorControl, Localizer);
     Navigation* Navigator = new Navigation();
+
+    std::pair<float, float> curDestination = Localizer->getCurrentPos();
 
     while (true)
     {
         int state = -1;
-        pair currentPosition;
+        
 
         // SensorHandler
         SensorControl->UpdateAllSensors();
@@ -21,16 +23,15 @@ int main()
 
         // Localization....useless?
         Localizer->setCurrentPos(SensorControl->getMouseSensor()->getValue());
-        currentPosition = Localizer->getCurrentPos();
 
 
         // Assessments
-        state = StateDetector->DetermineState(SensorControl);
+        state = StateDetector->DetermineState(SensorControl, Localizer);
 
 
         // Navigation
         Navigator->DetermineNavigation(state, SensorControl);
-
+        curDestination = Navigator->getDestination();
     }
     return 0;
 }

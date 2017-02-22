@@ -11,6 +11,7 @@ public:
     
     // Getters
     std::pair<int, int> getDestination();
+    std::vector<std::pair<float, float> > getPoints() {return nextPoints;};
 
     // Setters
     void setNextPoint();    // Be mindful of obstacles on turns
@@ -21,7 +22,8 @@ public:
     void DetermineNavigation(int s, SensorHandler* SensorControl);
 
 private:
-    int nextPoint = 0;
+    int nextPoint = 0;  // REMOVE THIS?
+    std::vector<std::pair<float, float> > nextPoints;
     static const std::pair<int, int> turnPoints[14];
 
 
