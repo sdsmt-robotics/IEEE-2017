@@ -11,7 +11,7 @@ public:
     bool getValue(){ return value; };
 
     // Setters
-    void setValue(int v){ value = v; };
+    // void setValue(int v){ value = v; };
 
     // Actions
     void UpdateSensors();

@@ -2,14 +2,16 @@
 
 void StateDetect::DetermineState(SensorHandler* SensorControl, Localization* Loco, std::pair<float, float> dest)
 {
-    // Yeah....Need to make a state machine for this guy
     int direction = Direction(Loco);
+	
+	////////// Error? //////////
     if (direction == -1)
     {
     	state = -1;
     	return;
     }
 
+    ////////// Obstacle? //////////
 	if (Avoiding())
 	{
 		// Determine if done
@@ -27,10 +29,31 @@ void StateDetect::DetermineState(SensorHandler* SensorControl, Localization* Loc
 		// Lay in new course
 		state += 20;			// Defines "avoiding" state
 		state += direction;		// Navigation needs to set route, navigation removes value after RESOLVED
-	}
-	else if (OnCourse(Loco->getCurrentPos(), dest, direction))	// X
-	{
 		return;
+	}
+	
+	////////// On Course? //////////
+	if (!OnCourse(Loco->getCurrentPos(), dest, direction))	// X
+	{
+		state += 30;			// Defines off course
+		state += direction;		// Defines direction of motion
+		return;
+	}
+
+	////////// Found Cache? //////////
+	if (Loco->isEntrance())
+	{
+		if (!removedLid)
+		{
+			if (!countedPips)
+			{
+				if (!RemovingLid())
+				{
+					state += 40;
+					state += 1;		// Needs lid removed
+				}
+			}
+		}
 	}
 }
 
@@ -76,9 +99,14 @@ bool StateDetect::Avoiding()
 	return (state % 100 - state % 10 == 2);
 }
 
+bool StateDetect::RemovingLid()
+{
+	return (state % 100 - state % 10 == 4);
+}
+
 bool StateDetect::OnCourse(std::pair<float, float> cur, std::pair<float, float> dest, int XorY)
 {
-	if (XorY == 1 || XorY == 2)
+	if (XorY == 3 || XorY == 4)
 		return Equal(cur.first, dest.first);
 
 	return Equal(cur.second, dest.second);
